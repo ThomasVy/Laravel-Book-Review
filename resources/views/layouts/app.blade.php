@@ -97,6 +97,13 @@
         <main class="py-4" style="margin-bottom: 30px;">
             @yield('content')
         </main>
+
+        <!-- Scripts --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            @yield('scripts')
+        </script>
+
     </div>
 </body>
 </html>

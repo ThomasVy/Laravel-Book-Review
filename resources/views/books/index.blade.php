@@ -20,3 +20,16 @@
   </div>
 </div>
 @endsection('content')
+
+@section('scripts')
+$(window).on("load",function(){
+
+    $('img').each(function(){
+        if(this.naturalWidth < 10){
+            $(this).attr('src', 'https://vector.me/files/images/1/5/151985/none_icon_available_no_unavailable.jpg');
+            
+        }
+    });
+
+});
+@stop
