@@ -70,9 +70,9 @@ class BooksController extends Controller
      */
     public function show(book $book)
     {
-        $comments = DB::table('books')->join('comments', 'comments.book_id', '=', 'books.id')
-        ->join('users', 'comments.user_id', '=', 'users.id')
-        ->select('text', 'email')->get();
+        $comments = DB::table('comments')->join('users', 'comments.user_id', '=', 'users.id')
+        ->where('comments.book_id', '=', $book->id)
+        ->select('text', 'email', 'comments.timestamp')->get();
         // $comments = comment::where('book_id', '=', $book->id)->get();
        return view('books.show',
        ['book' => $book,

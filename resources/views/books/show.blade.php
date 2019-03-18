@@ -31,6 +31,7 @@
     <h4 style="margin-top: 15px;">{{ __('Comments') }}</h4>
     <div class="row" style="margin-bottom: 20px;">
       @foreach($comments as $comment)
+        <label class="col-md-4 col-form-label text-md-right">{{ $comment->timestamp }}</label>
         <label class="col-md-6 col-form-label text-md-right">{{ $comment->email }}</label>
         <label class="col-md-6 col-form-label text-md-left">{{ $comment->text }}</label>
       @endforeach
