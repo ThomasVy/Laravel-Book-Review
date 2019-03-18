@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\comment;
+use App\Imports\BooksImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\book;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
+class BooksController extends Controller
+{
+  public static function import()
+  {
+    Excel::import(new BooksImport, 'SENG401-Lab4-Books.csv');
+  }
+
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $books = book::all();
+        return view('books.index', compact('books'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        abort_unless(\Gate::allows('create'), 403);
+        return view('books.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+          'name' => 'required|string|max:255',
+          'isbn' => 'required|max:13',
+          'Publication_Year' => 'required|numeric|gt:0',
+          'Publisher' => 'required|string|max:255',
+          'Subscription_Status' => 'required|string|max:255',
+          'Image' => 'required'
+        ]);
+        Book::create($validated);
+        return redirect('/books');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\book  $book
+     * @return \Illuminate\Http\Response
+     */
+    public function show(book $book)
+    {
+        $comments = DB::table('books')->join('comments', 'comments.book_id', '=', 'books.id')
+        ->join('users', 'comments.user_id', '=', 'users.id')
+        ->select('text', 'email')->get();
+        // $comments = comment::where('book_id', '=', $book->id)->get();
+       return view('books.show',
+       ['book' => $book,
+        'comments' => $comments,
+       ]
+      );
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\book  $book
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(book $book)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\book  $book
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, book $book)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\book  $book
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(book $book)
+    {
+        //
+    }
+}
