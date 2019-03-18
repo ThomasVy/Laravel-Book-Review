@@ -6,6 +6,7 @@ use App\author;
 use Illuminate\Http\Request;
 use App\Imports\AuthorImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class AuthorsController extends Controller
 {

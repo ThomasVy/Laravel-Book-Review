@@ -21,4 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('books', 'BooksController');
 
-Route::resource('authors', 'AuthorsController');
+Route::resource('authors', 'AuthorsController')->can();
