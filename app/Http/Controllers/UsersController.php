@@ -2,23 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\author;
+use App\User;
 use Illuminate\Http\Request;
-use App\Imports\AuthorImport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
 
-class AuthorsController extends Controller
+class UsersController extends Controller
 {
-    public static function import()
-    {
-      Excel::import(new AuthorImport, 'SENG401-Lab4-Books.csv');
-    }
-
-    public function __construct()
-    {
-      $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +14,9 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        $authors = author::all();
-        return view('Authors.index', compact('authors'));
+        $users = User::all();
+        return view('admin.users', compact('users'));
+
     }
 
     /**
@@ -37,8 +26,7 @@ class AuthorsController extends Controller
      */
     public function create()
     {
-        abort_unless(\Gate::allows('create'), 403);
-        return view('Authors.create');
+        //
     }
 
     /**
@@ -49,31 +37,27 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:191'
-        ]);
-        Author::create($validated);
-        return redirect('/authors');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\author  $author
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(author $author)
+    public function show(User $user)
     {
-        return view('authors.index', ['authors' => $author]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\author  $author
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(author $author)
+    public function edit(User $user)
     {
         //
     }
@@ -82,10 +66,10 @@ class AuthorsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\author  $author
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, author $author)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -93,10 +77,10 @@ class AuthorsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\author  $author
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(author $author)
+    public function destroy(User $user)
     {
         //
     }
