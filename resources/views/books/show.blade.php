@@ -21,7 +21,14 @@
         </div>
         <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Subscription Status') }}</label>
-          <label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status }}</label>
+          <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status }}</label>
+          @if(auth()->user())
+           @if(auth()->user()->isSubscriber())
+
+              <!-- this button will create a new subscription or unsubscribe -->
+              <button style="margin: auto;" id="subscribe" type="button" class="btn btn-primary" >Subscribe!</button>
+            @endif
+          @endif
         </div>
         <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Added on') }}</label>
@@ -38,3 +45,22 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+$(document).ready(function(){
+    var status = {!! json_encode($book->subscription_status) !!};
+    if(status == "Not subscribed"){
+      $('#subscribe').click(function(){
+          window.location = "/home";
+      })
+    }
+    else{
+      $('#subscribe').html("Unsubscribe");
+      $('#subscribe').click(function(){
+          window.location = "/home";
+      })
+    }
+
+});
+
+@endsection('scripts')
