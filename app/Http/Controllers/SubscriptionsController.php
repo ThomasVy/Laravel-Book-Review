@@ -41,6 +41,10 @@ class SubscriptionsController extends Controller
         $subscription->user_id = auth()->user()->id;
         $subscription->save();
         //update book status
+        $book = Book::findOrFail($request->book_id);
+        $book->update([
+            'subscription_status' => 0
+        ]);
         return redirect('/books/'.$request->book_id.'');
     }
 
