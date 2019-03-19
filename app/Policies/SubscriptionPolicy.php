@@ -19,7 +19,7 @@ class SubscriptionPolicy
      */
     public function update(User $user, Subscription $subscription)
     {
-        return $user.id === $subscription.user_id;
+        return $user.isSubscriber();
     }
 
 

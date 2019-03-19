@@ -29,7 +29,6 @@
 
 @section('scripts')
 $(document).ready(function(){
-
     $('tr').click(function(){
         <!-- change this to subcriptions -->
         window.location = "/home"

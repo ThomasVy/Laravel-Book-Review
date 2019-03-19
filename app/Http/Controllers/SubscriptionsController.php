@@ -45,8 +45,9 @@ class SubscriptionsController extends Controller
         $book->update([
             'subscription_status' => 0
         ]);
-        return redirect('/books/'.$request->book_id.'');
+        return redirect('/books/'.$request->book_id);
     }
+
 
     /**
      * Display the specified resource.

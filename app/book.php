@@ -20,6 +20,9 @@ class book extends Model
   }
   public function isSubscribed()
   {
+    if(!auth()->user()){
+      return false;
+    }
     $hasSubscribed = DB::table('subscriptions')->where([
       ['user_id', '=', auth()->user()->id],
       ['book_id', '=', $this->id],

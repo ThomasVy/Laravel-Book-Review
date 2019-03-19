@@ -74,7 +74,7 @@
         </div>
       @endif
 </div>
-@endsection
+@endsection('content')
 
 @section('scripts')
 $(document).ready(function(){
@@ -85,8 +85,8 @@ $(document).ready(function(){
       $('#subscribe').val("Unsubscribe");
       $('#subscribe_form').submit(function(event){
           event.preventDefault();
-          <!-- following line needs to change subscription status in DB -->
-          window.location = "/home";
+        
+          window.location = "/books/"+book_id+"/unsubscribe";
       })
     }
 
