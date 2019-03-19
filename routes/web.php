@@ -24,3 +24,5 @@ Route::resource('books', 'BooksController');
 Route::resource('authors', 'AuthorsController');
 
 Route::resource('users', 'UsersController')->middleware('can:update');
+
+Route::resource('subscriptions', 'SubscriptionsController');

@@ -6,7 +6,7 @@ use App\subscription;
 use App\book;
 use Illuminate\Http\Request;
 
-class SubscriptionController extends Controller
+class SubscriptionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +36,12 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $subscription = new Subscription();
+        $subscription->book_id = $request->book_id;
+        $subscription->user_id = auth()->user()->id;
+        $subscription->save();
+        //update book status
+        return redirect('/books/'.$request->book_id.'');
     }
 
     /**

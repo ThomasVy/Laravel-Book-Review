@@ -24,9 +24,14 @@
           <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status }}</label>
           @if(auth()->user())
            @if(auth()->user()->isSubscriber())
+              <form style="margin: auto;"  action="/subscriptions" method="POST">
+                {{csrf_field()}}
+                <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}> </input>
+                <input id="subscribe" type="submit" value="Subscribe!" class="btn btn-primary"></input>
 
+              </form>
               <!-- this button will create a new subscription or unsubscribe -->
-              <button style="margin: auto;" id="subscribe" type="button" class="btn btn-primary" >Subscribe!</button>
+              <!-- <button style="margin: auto;" id="subscribe" type="button" class="btn btn-primary" >Subscribe!</button> -->
             @endif
           @endif
         </div>
@@ -49,17 +54,23 @@
 @section('scripts')
 $(document).ready(function(){
     var status = {!! json_encode($book->subscription_status) !!};
-    if(status == "Not subscribed"){
+    var book_id = {!! json_encode($book->id) !!};
+    <!-- if(status == "Not subscribed"){
       $('#subscribe').click(function(){
-          window.location = "/home";
+        $.post("/subscriptions",{
+          _token: "{{ csrf_token() }}",
+          book_id: book_id
+          });
+        alert("hi bitch");
       })
     }
+
     else{
       $('#subscribe').html("Unsubscribe");
       $('#subscribe').click(function(){
           window.location = "/home";
       })
-    }
+    } -->
 
 });
 
