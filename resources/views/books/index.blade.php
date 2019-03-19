@@ -2,8 +2,10 @@
 
 @section('content')
 <div class='center'>
-    @if(auth()->user()->isAdmin())
-      <button type="button" onclick="location.href='{{ url('/books/create') }}'"  class="btn btn-primary" >Create a Book</button>
+    @if(auth()->user())
+      @if(auth()->user()->isAdmin())
+        <button type="button" onclick="location.href='{{ url('/books/create') }}'"  class="btn btn-primary" >Create a Book</button>
+      @endif
     @endif
     <h1 style="margin-top: 10px;">Books</h1>
   <div class="card-body">

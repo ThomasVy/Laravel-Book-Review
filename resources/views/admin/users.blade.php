@@ -2,16 +2,28 @@
 
 @section('content')
 
+<!-- <style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style> -->
 
-<table class = "flex-center">
+<table>
+    <th></th>
+    <th>ID</th>
+    <th>E-mail</th>
+    <th>Role</th>
+    <th>Birthday</th>
+    <th>Education Field</th>
+    
     @foreach($users as $user)
         <tr>
-            <th>ID: {{$user->id}}</th>
-            <th>E-mail: {{$user->email}}</th>
-            <th>Role: {{$user->role}}</th>
-            <th>Birthday: {{$user->birthday}}</th>
-            <th>Education Field: {{$user->education_field}}</th>
-            <th><button>Edit</button></th>
+            <td><button>Edit</button></td>
+            <td>{{$user->id}}</td>
+            <td>{{$user->email}}</td>
+            <td>{{$user->role}}</td>
+            <td>{{$user->birthday}}</td>
+            <td>{{$user->education_field}}</td>
         </tr>
     @endforeach
 </table>

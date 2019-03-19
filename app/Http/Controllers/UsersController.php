@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        abort_if($this->middleware('guest'), 403);
+        abort_unless(auth()->user()->isAdmin(), 403);
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +28,7 @@ class UsersController extends Controller
      */
     public function index()
     {
+        //abort_unless(auth()->user()->isAdmin(), 403);
         $users = User::all();
         return view('admin.users', compact('users'));
 

@@ -39,6 +39,15 @@
         .center{
           text-align: center;
         }
+
+        table{
+            margin-left auto;
+            margin-right auto;
+        }
+
+        th, td {
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
