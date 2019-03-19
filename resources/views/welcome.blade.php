@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="title m-b-md center">
-    SENG 401
+    {{ config('app.name') }}
 </div>
 
 <div class="links center">

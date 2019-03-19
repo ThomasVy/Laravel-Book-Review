@@ -41,13 +41,24 @@
         }
 
         table{
-            margin-left auto;
-            margin-right auto;
+           width: 100%;
+           border-radius:6px;
         }
 
-        th, td {
-            border: 1px solid black;
+        th{
+            background-color: #1DA1F2;
+            color: white;
+            padding-left: 20px;
         }
+
+        td{
+            padding-left: 20px;
+        }
+
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        tr:hover {background-color: #ddd;}
+
+        
     </style>
 </head>
 <body>

@@ -15,8 +15,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        abort_if($this->middleware('guest'), 403);
-        abort_unless(auth()->user()->isAdmin(), 403);
+        
         $this->middleware('auth');
     }
 
@@ -28,9 +27,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //abort_unless(auth()->user()->isAdmin(), 403);
+        
         $users = User::all();
-        return view('admin.users', compact('users'));
+        return view('users.show', compact('users'));
 
     }
 
