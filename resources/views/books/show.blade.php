@@ -26,7 +26,7 @@
         </div>
         <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Subscription Status') }}</label>
-          <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status }}</label>
+          <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status ? 'Available' : 'Taken' }}</label>
           @if(auth()->user())
            @if(auth()->user()->isSubscriber())
               <form id="subscribe_form" style="margin: auto;"  action="/subscriptions" method="POST">
