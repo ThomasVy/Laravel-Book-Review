@@ -10,12 +10,23 @@ class book extends Model
 
   public $timestamps = false;
 
-  public function isSubscribed()
+  public function hasSubscribed()
   {
       $check = DB::table('subscriptions')->where([
         ['user_id', '=', auth()->user()->id],
         ['book_id', '=', $this->id],
       ])->get();
       return(count($check));
+  }
+  public function isSubscribed()
+  {
+    $hasSubscribed = DB::table('subscriptions')->where([
+      ['user_id', '=', auth()->user()->id],
+      ['book_id', '=', $this->id],
+    ])->latest('timestamp')->first();
+    if($hasSubscribed && auth()->user()->id === $hasSubscribed->user_id){
+      return true;
+    }
+     return false;
   }
 }

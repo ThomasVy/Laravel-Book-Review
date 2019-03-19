@@ -51,7 +51,7 @@
         <label class="col-md-5 text-md-left">{{ $comment->text }}</label>
       </div>
       @endforeach
-      @if(!Auth::guest() && ($book->isSubscribed() || Auth::user()->isAdmin()))
+      @if(!Auth::guest() && ($book->hasSubscribed() || Auth::user()->isAdmin()))
         <div class="card-body">
               <form action="/books/{{$book->id}}/comments" method="POST">
                   @csrf
@@ -80,13 +80,18 @@
 $(document).ready(function(){
     var status = {!! json_encode($book->subscription_status) !!};
     var book_id = {!! json_encode($book->id) !!};
-    if(status == 0){
+    var currentlySubscribed = {!! json_encode($book->isSubscribed()) !!};
+    if(status == 0 && currentlySubscribed){
       $('#subscribe').val("Unsubscribe");
       $('#subscribe_form').submit(function(event){
           event.preventDefault();
           <!-- following line needs to change subscription status in DB -->
           window.location = "/home";
       })
+    }
+
+    else if(status == 0 && !currentlySubscribed){
+      $('#subscribe').attr('type','hidden');
     }
 
 });
