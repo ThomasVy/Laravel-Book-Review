@@ -19,7 +19,7 @@ class BooksImport implements ToModel
             'isbn' =>$row[0],
             'publication_year' => $row[3],
             'publisher'=> $row[4],
-            'subscription_status' => "Not subscribed", 
+            'subscription_status' => "Avaliable", 
             'image' => $row[5],
         ]);
     }

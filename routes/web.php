@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('books', 'BooksController');
 
 Route::resource('authors', 'AuthorsController');
+
+Route::post('/books/{book}/comments', 'CommentsController@store');
