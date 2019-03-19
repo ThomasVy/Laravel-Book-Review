@@ -16,10 +16,10 @@ class BooksController extends Controller
     Excel::import(new BooksImport, 'SENG401-Lab4-Books.csv');
   }
 
-  public function __construct()
-  {
-    $this->middleware('auth');
-  }
+  // public function __construct()
+  // {
+  //   $this->middleware('auth');
+  // }
     /**
      * Display a listing of the resource.
      *

@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +27,9 @@ class UsersController extends Controller
      */
     public function index()
     {
+        
         $users = User::all();
-        return view('admin.users', compact('users'));
+        return view('users.show', compact('users'));
 
     }
 
