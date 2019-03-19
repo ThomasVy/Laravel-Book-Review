@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Policies\SubscriptionPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\BookPolicy;
+use App\Policies\UserPolicy;
+use App\Policies\AuthorPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,9 +19,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
-        // 'App\Subscription' => 'SubscriptionPolicy',
-        // 'App\Comment' => 'App\Policies\CommentPolicy',
+        'App\Author' => 'App\Policies\AuthorPolicy',
+        'App\Subscription' => 'App\Policies\SubscriptionPolicy',
         'App\BookPolicy' => 'App\Policies\BookPolicy',
+        'App\Comment' => 'App\Policies\CommentPolicy',
+        'App\User' => 'App\Policies\UserPolicy',
     ];
 
     /**

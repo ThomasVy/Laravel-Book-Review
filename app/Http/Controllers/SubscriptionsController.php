@@ -2,23 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\author;
+use App\subscription;
+use App\book;
 use Illuminate\Http\Request;
-use App\Imports\AuthorImport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
 
-class AuthorsController extends Controller
+class SubscriptionsController extends Controller
 {
-    public static function import()
-    {
-      Excel::import(new AuthorImport, 'SENG401-Lab4-Books.csv');
-    }
-
-    public function __construct()
-    {
-      $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +15,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        $authors = author::all();
-        return view('Authors.index', compact('authors'));
+        //
     }
 
     /**
@@ -37,8 +25,7 @@ class AuthorsController extends Controller
      */
     public function create()
     {
-        abort_unless(\Gate::allows('create'), 403);
-        return view('Authors.create');
+        //
     }
 
     /**
@@ -49,31 +36,32 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:191'
-        ]);
-        Author::create($validated);
-        return redirect('/authors');
+        $subscription = new Subscription();
+        $subscription->book_id = $request->book_id;
+        $subscription->user_id = auth()->user()->id;
+        $subscription->save();
+        //update book status
+        return redirect('/books/'.$request->book_id.'');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\author  $author
+     * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function show(author $author)
+    public function show(subscription $subscription)
     {
-        return view('authors.index', ['authors' => $author]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\author  $author
+     * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function edit(author $author)
+    public function edit(subscription $subscription)
     {
         //
     }
@@ -82,10 +70,10 @@ class AuthorsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\author  $author
+     * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, author $author)
+    public function update(Request $request, subscription $subscription)
     {
         //
     }
@@ -93,10 +81,10 @@ class AuthorsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\author  $author
+     * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(author $author)
+    public function destroy(subscription $subscription)
     {
         //
     }

@@ -6,8 +6,10 @@
     <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.05);">
       <img src="{{ $book->image }}" width='200' height='300' style="margin-bottom: 15px;">
     </div>
-    @if(auth()->user()->isAdmin())
-      <button type="button" style="margin-top: 15px;" onclick="location.href='{{ url('/books/'. $book->id .'/edit') }}'"  class="btn btn-primary" >Edit</button>
+    @if(auth()->user())
+      @if(auth()->user()->isAdmin())
+        <button type="button" style="margin-top: 15px;" onclick="location.href='{{ url('/books/'. $book->id .'/edit') }}'"  class="btn btn-primary" >Edit</button>
+      @endif
     @endif
     <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.05);">
         <div class="row">
@@ -24,7 +26,17 @@
         </div>
         <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Subscription Status') }}</label>
-          <label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status }}</label>
+          <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status }}</label>
+          @if(auth()->user())
+           @if(auth()->user()->isSubscriber())
+              <form style="margin: auto;"  action="/subscriptions" method="POST">
+                {{csrf_field()}}
+                <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}>
+                <input id="subscribe" type="submit" value="Subscribe!" class="btn btn-primary">
+
+              </form>
+            @endif
+          @endif
         </div>
         <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Added on') }}</label>
@@ -39,7 +51,7 @@
         <label class="col-md-5 text-md-left">{{ $comment->text }}</label>
       </div>
       @endforeach
-      @if($book->isSubscribed() || Auth::user()->isAdmin())
+      @if(!Auth::guest() && ($book->isSubscribed() || Auth::user()->isAdmin()))
         <div class="card-body">
               <form action="/books/{{$book->id}}/comments" method="POST">
                   @csrf
@@ -63,3 +75,28 @@
       @endif
 </div>
 @endsection
+
+@section('scripts')
+$(document).ready(function(){
+    var status = {!! json_encode($book->subscription_status) !!};
+    var book_id = {!! json_encode($book->id) !!};
+    <!-- if(status == "Not subscribed"){
+      $('#subscribe').click(function(){
+        $.post("/subscriptions",{
+          _token: "{{ csrf_token() }}",
+          book_id: book_id
+          });
+        alert("hi bitch");
+      })
+    }
+
+    else{
+      $('#subscribe').html("Unsubscribe");
+      $('#subscribe').click(function(){
+          window.location = "/home";
+      })
+    } -->
+
+});
+
+@endsection('scripts')
