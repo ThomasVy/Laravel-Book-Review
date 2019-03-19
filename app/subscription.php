@@ -9,5 +9,4 @@ class subscription extends Model
   protected $guarded = [];
 
   public $timestamps = false;
-    //
 }
