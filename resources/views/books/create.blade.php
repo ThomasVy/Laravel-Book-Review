@@ -6,7 +6,6 @@
 <div class="card-body">
     <form method="POST" action="/books">
         @csrf
-
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Book Name') }}</label>
 
@@ -58,20 +57,6 @@
                 @if ($errors->has('Publisher'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('Publisher') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="Subscription_Status" class="col-md-4 col-form-label text-md-right">{{ __('Subscription Status') }}</label>
-
-            <div class="col-md-6">
-                <input id="Subscription_Status" type="text" class="form-control{{ $errors->has('Subscription_Status') ? ' is-invalid' : '' }}" name="Subscription_Status" value="{{ old('Subscription_Status') }}">
-
-                @if ($errors->has('Subscription_Status'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('Subscription_Status') }}</strong>
                     </span>
                 @endif
             </div>

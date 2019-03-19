@@ -9,4 +9,8 @@ class subscription extends Model
   protected $guarded = [];
 
   public $timestamps = false;
+
+  public function book(){
+    return $this->belongsTo(book::class);
+  }
 }

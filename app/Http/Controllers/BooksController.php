@@ -56,7 +56,6 @@ class BooksController extends Controller
           'isbn' => 'required|max:13',
           'Publication_Year' => 'required|numeric|gt:0',
           'Publisher' => 'required|string|max:255',
-          'Subscription_Status' => 'required|string|max:255',
           'Image' => 'required'
         ]);
         Book::create($validated);
@@ -109,7 +108,6 @@ class BooksController extends Controller
           'isbn' => 'required|max:13',
           'Publication_Year' => 'required|numeric|gt:0',
           'Publisher' => 'required|string|max:255',
-          'Subscription_Status' => 'required|string|max:255',
           'Image' => 'required'
         ]));
         return redirect('/books/'. $book->id);

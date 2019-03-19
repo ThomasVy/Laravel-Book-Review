@@ -1,41 +1,93 @@
 @extends('layouts.app')
 
 @section('content')
+<h1 class='center'>User {{$user->id}}</h1>
 
-<h2 class='center'>Click to View Subscriptions</h2>
-<div style="margin: auto; width: 50%;">
+<div class="card-body">
+    <form method="POST" action="/users/{{$user->id}}">
+        @csrf
+        @method('PATCH')
+        <div class="form-group row">
+            <label for="Email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
-    <table>
-        <th>ID</th>
-        <th>E-mail</th>
-        <th>Role</th>
-        <th>Birthday</th>
-        <th>Education Field</th>
-        
-        @foreach($users as $user)
-            <tr>
-                <td>{{$user->id}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->role}}</td>
-                <td>{{$user->birthday}}</td>
-                <td>{{$user->education_field}}</td>
-            </tr>
-        @endforeach
-    </table>
-</div>
+            <div class="col-md-5">
+                <input id="Email" type="text" class="form-control{{ $errors->has('Email') ? ' is-invalid' : '' }}" name="Email" value="{{$user->email}}"  autofocus>
 
+                @if ($errors->has('email'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
 
-@endsection('content')
+        <div class="form-group row">
+            <label for="Role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
-@section('scripts')
-$(document).ready(function(){
+            <div class="col-md-5">
+              <select id="Role" class="form-control{{ $errors->has('Role') ? ' is-invalid' : '' }}" name="Role">
+                <option value="0">-- Choose A Role --</option>
+                <option value="Admin" {{$user->role === "Admin" ? 'selected' : ''}}>Admin</option>
+                <option value="Subscriber" {{$user->role === "Subscriber" ? 'selected' : ''}}>Subscriber</option>
+              </select>
+                @if ($errors->has('Role'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Role') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
 
-    $('tr').click(function(){
-        <!-- change this to subcriptions -->
-        window.location = "/home"
-        
-    });
+        <div class="form-group row">
+            <label for="Birthday" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
 
-});
+            <div class="col-md-5">
+                <input id="Birthday" type="date" class="form-control{{ $errors->has('Birthday') ? ' is-invalid' : '' }}" name="Birthday" value="{{ $user->birthday }}" >
 
-@endsection('scripts')
+                @if ($errors->has('Birthday'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Birthday') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="Education" class="col-md-4 col-form-label text-md-right">{{ __('Education') }}</label>
+
+            <div class="col-md-5">
+                <input id="Education_Field" type="string" class="form-control{{ $errors->has('Education_Field') ? ' is-invalid' : '' }}" name="Education_Field" value="{{ $user->education_field }}" >
+
+                @if ($errors->has('Education_Field'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Education_Field') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+        <div class="form-group row mb-0">
+            <div class="col-md-8 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Submit') }}
+                </button>
+            </div>
+        </div>
+    </form>
+    <h4 class ='center' style="margin-top: 15px;">{{ __('Subscriptions') }}</h4>
+    <div style="margin: auto; width: 50%;">
+        <table>
+            <th>Timestamp</th>
+            <th>Book ISBN</th>
+            <th></th>
+            @foreach($subscriptions as $subscription)
+                <tr>
+                    <td>{{$subscription->timestamp}}</td>
+                    <td>{{$subscription->book->ISBN}}</td>
+                    <td><button class="btn btn-danger">Unsubscribe</button></td>
+                </tr>
+            @endforeach
+        </table>
+    </div>
+
+  </div>
+@endsection
