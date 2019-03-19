@@ -29,10 +29,10 @@
           <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status ? 'Available' : 'Taken' }}</label>
           @if(auth()->user())
            @if(auth()->user()->isSubscriber())
-              <form style="margin: auto;"  action="/subscriptions" method="POST">
-                @csrf
-                <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}>
-                <input id="subscribe" type="submit" value="Subscribe!" class="btn btn-primary">
+              <form id="subscribe_form" style="margin: auto;"  action="/subscriptions" method="POST">
+                {{csrf_field()}}
+                <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}> </input>
+                <input id="subscribe" type="submit" value="Subscribe!" class="btn btn-primary"></input>
 
               </form>
             @endif
@@ -80,22 +80,14 @@
 $(document).ready(function(){
     var status = {!! json_encode($book->subscription_status) !!};
     var book_id = {!! json_encode($book->id) !!};
-    <!-- if(status == "Not subscribed"){
-      $('#subscribe').click(function(){
-        $.post("/subscriptions",{
-          _token: "{{ csrf_token() }}",
-          book_id: book_id
-          });
-        alert("hi bitch");
-      })
-    }
-
-    else{
-      $('#subscribe').html("Unsubscribe");
-      $('#subscribe').click(function(){
+    if(status == 0){
+      $('#subscribe').val("Unsubscribe");
+      $('#subscribe_form').submit(function(event){
+          event.preventDefault();
+          <!-- following line needs to change subscription status in DB -->
           window.location = "/home";
       })
-    } -->
+    }
 
 });
 
