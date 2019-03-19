@@ -50,6 +50,7 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
+        abort_unless(\Gate::allows('create'), 403);
         $validated = $request->validate([
           'name' => 'required|string|max:255',
           'isbn' => 'required|max:13',
@@ -89,7 +90,8 @@ class BooksController extends Controller
      */
     public function edit(book $book)
     {
-        //
+        abort_unless(\Gate::allows('create'), 403);
+        return view('books.edit', compact('book'));
     }
 
     /**
@@ -101,7 +103,16 @@ class BooksController extends Controller
      */
     public function update(Request $request, book $book)
     {
-        //
+        abort_unless(\Gate::allows('create'), 403);
+        $book->update($request->validate([
+          'name' => 'required|string|max:255',
+          'isbn' => 'required|max:13',
+          'Publication_Year' => 'required|numeric|gt:0',
+          'Publisher' => 'required|string|max:255',
+          'Subscription_Status' => 'required|string|max:255',
+          'Image' => 'required'
+        ]));
+        return redirect('/books/'. $book->id);
     }
 
     /**
@@ -110,8 +121,10 @@ class BooksController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(book $book)
+    public function destroy($id)
     {
-        //
+        abort_unless(\Gate::allows('create'), 403);
+        Book::findOrFail($id)->delete();
+        return redirect('/books');
     }
 }

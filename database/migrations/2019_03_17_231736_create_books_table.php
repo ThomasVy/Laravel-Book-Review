@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
             $table->unsignedBigInteger('ISBN');
             $table->unsignedInteger('publication_year');
             $table->string('publisher');
-            $table->string('subscription_status');
+            $table->boolean('subscription_status')->default('1');
             $table->timestamp('timestamp');
             $table->text('image');
         });

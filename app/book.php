@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class book extends Model
@@ -10,12 +10,12 @@ class book extends Model
 
   public $timestamps = false;
 
-  public function toggleSubscriptionStatus(){
-    if($this->subcription_status === "Not Subscribed"){
-      $this->subcription_status = "Subscribed";
-    }
-    else{
-      $this->subscription_status = "Not Subscribed";
-    }
+  public function isSubscribed()
+  {
+      $check = DB::table('subscriptions')->where([
+        ['user_id', '=', auth()->user()->id],
+        ['book_id', '=', $this->id],
+      ])->get();
+      return(count($check));
   }
 }

@@ -23,6 +23,8 @@ Route::resource('books', 'BooksController');
 
 Route::resource('authors', 'AuthorsController');
 
+Route::post('/books/{book}/comments', 'CommentsController@store');
+
 Route::resource('users', 'UsersController')->middleware('can:update');
 
 Route::resource('subscriptions', 'SubscriptionsController');
