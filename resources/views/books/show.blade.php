@@ -30,7 +30,7 @@
           @if(auth()->user())
            @if(auth()->user()->isSubscriber())
               <form style="margin: auto;"  action="/subscriptions" method="POST">
-                {{csrf_field()}}
+                @csrf
                 <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}>
                 <input id="subscribe" type="submit" value="Subscribe!" class="btn btn-primary">
 

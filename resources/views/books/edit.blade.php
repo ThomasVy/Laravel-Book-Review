@@ -68,7 +68,7 @@
             <label for="Subscription_Status" class="col-md-4 col-form-label text-md-right">{{ __('Subscription Status') }}</label>
 
             <div class="col-md-6">
-                <input id="Subscription_Status" type="text" class="form-control{{ $errors->has('Subscription_Status') ? ' is-invalid' : '' }}" name="Subscription_Status" value="{{ $book->subscription_status }}">
+                <input id="Subscription_Status" type="checkbox" class="form-control{{ $errors->has('Subscription_Status') ? ' is-invalid' : '' }}" name="Subscription_Status" {{ if($book->subscription_status) ? 'checked' : '' }}>
 
                 @if ($errors->has('Subscription_Status'))
                     <span class="invalid-feedback" role="alert">
