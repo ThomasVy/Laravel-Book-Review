@@ -60,6 +60,12 @@
 
         
     </style>
+
+    <!-- Scripts --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            @yield('scripts')
+        </script>
 </head>
 <body>
     <div id="app">
@@ -118,11 +124,8 @@
             @yield('content')
         </main>
 
-        <!-- Scripts --> 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script>
-            @yield('scripts')
-        </script>
+        
+
 
     </div>
 </body>

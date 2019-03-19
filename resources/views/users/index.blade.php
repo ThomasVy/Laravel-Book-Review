@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2 class='center'>Click to View Subscriptions</h2>
+<h2 class='center'>Click to View User</h2>
 <div style="margin: auto; width: 50%;">
 
     <table>
