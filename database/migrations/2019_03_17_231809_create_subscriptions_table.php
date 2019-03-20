@@ -17,7 +17,7 @@ class CreateSubscriptionsTable extends Migration
           $table->bigIncrements('id');
           $table->unsignedBigInteger('book_id');
           $table->unsignedBigInteger('user_id');
-          $table->boolean('active')->default(0);
+          $table->boolean('active')->default(1);
           $table->timestamp('timestamp');
 
           $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');

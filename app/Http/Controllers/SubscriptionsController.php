@@ -37,8 +37,10 @@ class SubscriptionsController extends Controller
     public function store(Request $request)
     {
         $subscription = new Subscription();
+        //$this->authorize('update', $subscription);
         $subscription->book_id = $request->book_id;
         $subscription->user_id = auth()->user()->id;
+        $subscription->active = 1;
         $subscription->save();
         //update book status
         $book = Book::findOrFail($request->book_id);
