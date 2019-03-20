@@ -41,7 +41,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-      $subscription = $user->subscriptions;
+      $subscription = $user->subscriptions();
         return view('users.show', [
           'user' => $user,
           'subscriptions' => $subscription,

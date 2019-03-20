@@ -85,7 +85,7 @@ $(document).ready(function(){
       $('#subscribe').val("Unsubscribe");
       $('#subscribe_form').submit(function(event){
           event.preventDefault();
-        
+
           window.location = "/books/"+book_id+"/unsubscribe";
       })
     }
@@ -96,4 +96,14 @@ $(document).ready(function(){
 
 });
 
+$(window).on("load",function(){
+
+    $('img').each(function(){
+        if(this.naturalWidth < 10){
+            $(this).attr('src', 'https://vector.me/files/images/1/5/151985/none_icon_available_no_unavailable.jpg');
+
+        }
+    });
+
+});
 @endsection('scripts')

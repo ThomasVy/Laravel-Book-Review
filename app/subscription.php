@@ -11,6 +11,6 @@ class subscription extends Model
   public $timestamps = false;
 
   public function book(){
-    return $this->belongsTo(book::class);
+    return $this->belongsTo(App\Book);
   }
 }

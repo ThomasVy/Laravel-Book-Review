@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -56,6 +57,10 @@ class User extends Authenticatable
     }
 
     public function subscriptions(){
-      return $this->hasMany('App\subscription');
+       return DB::table("subscriptions")->where([
+                         ["active", '=', 1],
+                         ["user_id", '=', $this->id]
+                       ])->join('books', 'subscriptions.book_id', '=', 'books.id')
+                       ->select('subscriptions.timestamp', 'books.ISBN', 'subscriptions.id')->get();
     }
 }

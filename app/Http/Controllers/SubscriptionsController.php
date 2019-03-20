@@ -2,32 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\BookExistsRule;
+use App\Rules\SubscribableRule;
 use App\subscription;
 use App\book;
+use App\user;
 use Illuminate\Http\Request;
 
 class SubscriptionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -48,29 +31,22 @@ class SubscriptionsController extends Controller
         return redirect('/books/'.$request->book_id);
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function show(subscription $subscription)
+    public function adminStore(Request $request, User $user)
     {
-        //
-    }
+      $validate = $request->validate([
+            'isbn'  => [new BookExistsRule, new SubscribableRule]
+      ]);
+      $book = Book::where('ISBN', $request->isbn)->first();
+      unset($validate['isbn']);
+      $validate['book_id'] = $book->id;
+      $validate['user_id'] = $user->id;
+      Subscription::create($validate);
+      $book->update([
+          'subscription_status' => 0
+      ]);
+      return redirect('/users/'. $user->id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(subscription $subscription)
-    {
-        //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -83,14 +59,4 @@ class SubscriptionsController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(subscription $subscription)
-    {
-        //
-    }
 }

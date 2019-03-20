@@ -26,8 +26,9 @@ class book extends Model
     $hasSubscribed = DB::table('subscriptions')->where([
       ['user_id', '=', auth()->user()->id],
       ['book_id', '=', $this->id],
-    ])->latest('timestamp')->first();
-    if($hasSubscribed && auth()->user()->id === $hasSubscribed->user_id){
+      ['active', '=', 1],
+    ])->first();
+    if($hasSubscribed){
       return true;
     }
      return false;

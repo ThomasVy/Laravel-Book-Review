@@ -30,3 +30,5 @@ Route::resource('users', 'UsersController')->middleware('can:update');
 Route::resource('subscriptions', 'SubscriptionsController')->middleware('can:update');
 
 Route::get('/books/{book}/unsubscribe', 'BooksController@unsubscribe');
+
+Route::post('/subscriptions/store/{user}', 'SubscriptionsController@adminStore')->middleware('can:update');
