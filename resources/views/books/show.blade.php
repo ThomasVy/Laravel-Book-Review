@@ -32,8 +32,7 @@
               <form id="subscribe_form" style="margin: auto;"  action="/subscriptions" method="POST">
                 {{csrf_field()}}
                 <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}> </input>
-                <input id="subscribe" type="submit" value="Subscribe!" class="btn btn-primary"></input>
-
+                <input id="subscribe" type="submit" value="{{ $book->subscription_status ? 'Subscribe!': 'Unsubscribe'}}" class="btn btn-primary"></input>
               </form>
             @endif
           @endif
@@ -82,7 +81,6 @@ $(document).ready(function(){
     var book_id = {!! json_encode($book->id) !!};
     var currentlySubscribed = {!! json_encode($book->isSubscribed()) !!};
     if(status == 0 && currentlySubscribed){
-      $('#subscribe').val("Unsubscribe");
       $('#subscribe_form').submit(function(event){
           event.preventDefault();
 
