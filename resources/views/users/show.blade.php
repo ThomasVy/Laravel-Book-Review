@@ -74,15 +74,34 @@
         </div>
     </form>
     <h4 class ='center' style="margin-top: 15px;">{{ __('Subscriptions') }}</h4>
+    <form action="/subscriptions/store/{{$user->id}}" method="post">
+      @csrf
+        <div class="form-group row">
+            <label for="isbn" class="col-md-4 col-form-label text-md-right">{{ __('ISBN') }}</label>
+
+            <div class="col-md-3">
+                <input id="isbn" type="number" class="form-control{{ $errors->has('isbn') ? ' is-invalid' : '' }}" name="isbn" value="{{ old('isbn') }}" >
+            </div>
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Add Subscription') }}
+                </button>
+
+                @if ($errors->has('isbn'))
+                <div class="col-md-3">
+                        <strong style="color:red;">{{ $errors->first('isbn') }}</strong>
+                </div>
+                @endif
+      </div>
+    </form>
     <div style="margin: auto; width: 50%;">
         <table>
-            <th>Timestamp</th>
+            <th>Subscribed Date</th>
             <th>Book ISBN</th>
             <th></th>
             @foreach($subscriptions as $subscription)
                 <tr>
                     <td>{{$subscription->timestamp}}</td>
-                    <td>{{$subscription->book->ISBN}}</td>
+                    <td>{{$subscription->ISBN}}</td>
                     <td><button class="btn btn-danger">Unsubscribe</button></td>
                 </tr>
             @endforeach
