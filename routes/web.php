@@ -27,7 +27,7 @@ Route::post('/books/{book}/comments', 'CommentsController@store');
 
 Route::resource('users', 'UsersController')->middleware('can:update');
 
-Route::resource('subscriptions', 'SubscriptionsController')->middleware('can:update');
+Route::resource('subscriptions', 'SubscriptionsController')->middleware('can:update,App\Subscription');
 
 Route::get('/books/{book}/unsubscribe', 'BooksController@unsubscribe');
 

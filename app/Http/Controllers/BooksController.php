@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\comment;
+use App\subscription;
 use App\Imports\BooksImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\book;
@@ -117,6 +118,12 @@ class BooksController extends Controller
     {
         abort_unless(auth()->user() && auth()->user()->isSubscriber(), 403);
         $book = Book::findOrFail($book_id);
+        $subscription = Subscription::where("book_id", "=", $book_id)
+          ->where("user_id", "=", auth()->user()->id)
+          ->where("active", "=", 1)->first();
+        $subscription->update([
+            'active' => 0
+        ]);
         $book->update([
             'subscription_status' => 1
         ]);

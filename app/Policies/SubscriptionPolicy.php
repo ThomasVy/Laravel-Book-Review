@@ -17,9 +17,10 @@ class SubscriptionPolicy
      * @param  \App\Subscription  $subscription
      * @return mixed
      */
-    public function update(User $user, Subscription $subscription)
+    public function update(User $user)
     {
-        return $user.isSubscriber();
+        
+        return $user->isSubscriber();
     }
 
 
