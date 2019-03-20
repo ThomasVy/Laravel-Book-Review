@@ -27,7 +27,7 @@ class book extends Model
       ['user_id', '=', auth()->user()->id],
       ['book_id', '=', $this->id],
     ])->latest('timestamp')->first();
-    if($hasSubscribed && auth()->user()->id === $hasSubscribed->user_id){
+    if($hasSubscribed && auth()->user()->id === $hasSubscribed->user_id && $hasSubscribed->active === 1){
       return true;
     }
      return false;
