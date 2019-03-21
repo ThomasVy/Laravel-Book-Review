@@ -64,7 +64,8 @@ class AuthorsController extends Controller
      */
     public function show(author $author)
     {
-        return view('authors.index', ['authors' => $author]);
+        abort_unless(\Gate::allows('update'), 403);
+        return view('authors.show', ['author' => $author]);
     }
 
     /**
@@ -87,7 +88,13 @@ class AuthorsController extends Controller
      */
     public function update(Request $request, author $author)
     {
-        //
+        {
+            abort_unless(\Gate::allows('update'), 403);
+            $author->update($request->validate([
+              'name' => 'required|string|max:255',
+            ]));
+            return redirect('/authors');
+        }
     }
 
     /**
@@ -98,6 +105,8 @@ class AuthorsController extends Controller
      */
     public function destroy(author $author)
     {
-        //
+        abort_unless(\Gate::allows('destroy'), 403);
+        Author::findOrFail($author->id)->delete();
+        return redirect('/authors');
     }
 }
