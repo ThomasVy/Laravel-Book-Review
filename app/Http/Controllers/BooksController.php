@@ -114,7 +114,7 @@ class BooksController extends Controller
         return redirect('/books/'. $book->id);
     }
 
-    public function unsubscribe($book_id )
+    public function unsubscribe($book_id)
     {
         abort_unless(auth()->user() && auth()->user()->isSubscriber(), 403);
         $book = Book::findOrFail($book_id);
@@ -127,9 +127,8 @@ class BooksController extends Controller
         $book->update([
             'subscription_status' => 1
         ]);
-        return redirect('/books/'.$book_id.'');
+        return back();
     }
-
     /**
      * Remove the specified resource from storage.
      *

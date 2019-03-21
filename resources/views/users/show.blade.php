@@ -102,7 +102,13 @@
                 <tr>
                     <td>{{$subscription->timestamp}}</td>
                     <td>{{$subscription->ISBN}}</td>
-                    <td><button class="btn btn-danger">Unsubscribe</button></td>
+                    <td>
+                      <form method="POST" action="/subscriptions/{{$subscription->id}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Unsubscribe</button>
+                      </form>
+                    </td>
                 </tr>
             @endforeach
         </table>
