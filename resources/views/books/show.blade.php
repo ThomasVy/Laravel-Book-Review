@@ -13,6 +13,14 @@
     @endif
     <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.05);">
         <div class="row">
+          <label class="col-md-6 col-form-label text-md-right">{{ __('Author(s)') }}</label>
+          <label class="col-md-6 col-form-label text-md-left">
+          @foreach($wrotes as $wrote)
+              {{ $wrote->author->name }}
+          @endforeach
+          </label>
+        </div>
+        <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Published By') }}</label>
           <label class="col-md-6 col-form-label text-md-left">{{ $book->publisher }}</label>
         </div>

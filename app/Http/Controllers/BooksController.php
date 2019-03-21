@@ -16,11 +16,6 @@ class BooksController extends Controller
   {
     Excel::import(new BooksImport, 'SENG401-Lab4-Books.csv');
   }
-
-  // public function __construct()
-  // {
-  //   $this->middleware('auth');
-  // }
     /**
      * Display a listing of the resource.
      *
@@ -74,10 +69,12 @@ class BooksController extends Controller
         $comments = DB::table('comments')->join('users', 'comments.user_id', '=', 'users.id')
         ->where('comments.book_id', '=', $book->id)
         ->select('text', 'email', 'comments.timestamp')->get();
+        $wrotes = $book->wrotes;
         // $comments = comment::where('book_id', '=', $book->id)->get();
        return view('books.show',
        ['book' => $book,
         'comments' => $comments,
+        'wrotes' => $wrotes
        ]
       );
     }

@@ -3,6 +3,7 @@
 namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Wrote;
 
 class book extends Model
 {
@@ -32,5 +33,10 @@ class book extends Model
       return true;
     }
      return false;
+  }
+
+  public function wrotes()
+  {
+    return $this->hasMany('App\Wrote');
   }
 }

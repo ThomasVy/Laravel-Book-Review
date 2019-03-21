@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class AuthorsController extends Controller
 {
-    public static function import()
-    {
-      Excel::import(new AuthorImport, 'SENG401-Lab4-Books.csv');
-    }
-
     public function __construct()
     {
       $this->middleware('auth');
