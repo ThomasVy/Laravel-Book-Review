@@ -46,19 +46,18 @@ class SubscriptionsController extends Controller
       $book->update([
           'subscription_status' => 0
       ]);
-      return redirect('/users/'. $user->id);
+      return back();
 
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, subscription $subscription)
+    public function destroy(Subscription $subscription)
     {
-        //
+      $subscription->update([
+          'active' => 0
+      ]);
+      Book::findOrFail($subscription->book_id)->update([
+          'subscription_status' => 1
+      ]);
+      return back();
     }
 
 }

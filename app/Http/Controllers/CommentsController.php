@@ -19,7 +19,7 @@ class CommentsController extends Controller
      */
     public function store(Request $request, Book $book)
     {
-        abort_unless(auth()->user()->isAdmin()||$book->isSubscribed(), 403);
+        abort_unless(auth()->user()->isAdmin()||$book->hasSubscribed(), 403);
         $validated = $request->validate([
           'Comment' => 'required|string|max:255',
         ]);

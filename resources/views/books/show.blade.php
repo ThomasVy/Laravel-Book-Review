@@ -26,13 +26,13 @@
         </div>
         <div class="row">
           <label class="col-md-6 col-form-label text-md-right">{{ __('Subscription Status') }}</label>
-          <label id = status_label class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status ? 'Available' : 'Taken' }}</label>
+          <label id = status_label style="font-weight: bold; color: {{ $book->subscription_status ? 'green' : 'red'}};"class="col-md-6 col-form-label text-md-left">{{ $book->subscription_status ? 'Available' : 'Taken' }}</label>
           @if(auth()->user())
            @if(auth()->user()->isSubscriber())
               <form id="subscribe_form" style="margin: auto;"  action="/subscriptions" method="POST">
                 {{csrf_field()}}
-                <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}> </input>
-                <input id="subscribe" type="submit" value="{{ $book->subscription_status ? 'Subscribe!': 'Unsubscribe'}}" class="btn btn-primary"></input>
+                <input id=subscribe_val type="hidden" name="book_id" value={{$book->id}}></input>
+                <input id="subscribe" type="submit" value="{{ $book->subscription_status ? 'Subscribe!': 'Unsubscribe'}}" class="btn {{ $book->subscription_status ? 'btn-success' : 'btn-danger' }}"></input>
               </form>
             @endif
           @endif
@@ -44,7 +44,7 @@
     </div>
     <h4 style="margin-top: 15px;">{{ __('Comments') }}</h4>
       @foreach($comments as $comment)
-      <div class="row" style="margin-bottom: 10px; border:1px solid #ccc;">
+      <div class="row" style="margin: 10px;padding: 10px 1px; border:1px solid #ccc;">
        <label class="col-md-3 text-md-right">{{ $comment->timestamp }}</label>
         <label class="col-md-4 text-md-right">{{ $comment->email }}</label>
         <label class="col-md-5 text-md-left">{{ $comment->text }}</label>
