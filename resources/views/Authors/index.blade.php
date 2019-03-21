@@ -4,14 +4,14 @@
 <h1 class='center'>Authors</h1>
     <div style="margin-bottom: 10px" class='center'>
         @if(auth()->user()->isAdmin())
-        <button type="button" onclick="location.href='{{ url('/books/create') }}'"  class="btn btn-primary" >Add an Author</button>
+          <button type="button" onclick="location.href='{{ url('/authors/create') }}'"  class="btn btn-primary" >Add an Author</button>
         @endif
     </div>
-    
+
     <div style="margin: auto; width: 30%;">
         <table>
             <th>Name</th>
-            
+
             @foreach($authors as $author)
                 <tr data-url="/authors/{{$author->id}}">
                     <td>{{$author->name}}</td>

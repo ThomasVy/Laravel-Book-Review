@@ -38,7 +38,7 @@ class AuthorsController extends Controller
     public function create()
     {
         abort_unless(\Gate::allows('create'), 403);
-        return view('Authors.create');
+        return view('authors.create');
     }
 
     /**
@@ -66,17 +66,6 @@ class AuthorsController extends Controller
     {
         abort_unless(\Gate::allows('update'), 403);
         return view('authors.show', ['author' => $author]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(author $author)
-    {
-        //
     }
 
     /**
